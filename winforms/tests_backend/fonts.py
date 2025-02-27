@@ -1,7 +1,9 @@
 from System.Drawing import FontFamily, SystemFonts
 from travertino.constants import (
     FONT_SIZE_SCALE,
+    FONT_SIZE_SCALE_FACTOR,
     RELATIVE_FONT_SIZES,
+    SYSTEM_DEFAULT_FONT_SIZE,
 )
 
 from toga.fonts import (
@@ -17,7 +19,6 @@ from toga.fonts import (
     SERIF,
     SMALL_CAPS,
     SYSTEM,
-    SYSTEM_DEFAULT_FONT_SIZE,
 )
 
 
@@ -59,7 +60,7 @@ class FontMixin:
                 expected_size = base_size * FONT_SIZE_SCALE.get(expected, 1.0)
             assert abs(self.font_size - expected_size) < 0.01
         else:
-            assert self.font_size == expected * self.scale_factor
+            assert self.font_size == expected * FONT_SIZE_SCALE_FACTOR
 
     def assert_font_family(self, expected):
         assert str(self.font.Name) == {

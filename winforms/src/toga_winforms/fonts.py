@@ -13,6 +13,7 @@ from travertino.constants import (
     FONT_SIZE_SCALE,
     RELATIVE_FONT_SIZE_SCALE,
     RELATIVE_FONT_SIZES,
+    SYSTEM_DEFAULT_FONT_SIZE,
 )
 
 from toga.fonts import (
@@ -24,7 +25,6 @@ from toga.fonts import (
     SANS_SERIF,
     SERIF,
     SYSTEM,
-    SYSTEM_DEFAULT_FONT_SIZE,
 )
 
 _FONT_CACHE = {}
@@ -96,7 +96,7 @@ class Font:
             ):
                 font_style |= FontStyle.Italic
 
-            # Convert font size to Winforms format, allowing for CSS keywords
+            # Convert font size to Winforms format
             if self.interface.size == SYSTEM_DEFAULT_FONT_SIZE:
                 font_size = DEFAULT_FONT.Size
             elif (
