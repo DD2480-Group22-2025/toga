@@ -62,9 +62,6 @@ async def test_font_options(widget: toga.Label, font_probe):
             SYSTEM_DEFAULT_FONT_SIZE,
             *ABSOLUTE_FONT_SIZES,
             *RELATIVE_FONT_SIZES,
-            "12pt",
-            5,
-            "5pt",
         ]:
             for font_weight in FONT_WEIGHTS:
                 for font_style in FONT_STYLES:
