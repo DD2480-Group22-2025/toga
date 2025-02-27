@@ -450,6 +450,16 @@ from toga.style.pack import (
             id="font-size",
         ),
         pytest.param(
+            Pack(font_size="smaller"),
+            "flex-direction: row; flex: 0.0 0 auto; font-size: smaller;",
+            id="font-size-smaller",
+        ),
+        pytest.param(
+            Pack(font_size="large"),
+            "flex-direction: row; flex: 0.0 0 auto; font-size: large;",
+            id="font-size-large",
+        ),
+        pytest.param(
             Pack(font_size=SYSTEM_DEFAULT_FONT_SIZE),
             "flex-direction: row; flex: 0.0 0 auto;",
             id="font-size-explicit-default",

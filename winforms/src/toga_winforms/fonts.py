@@ -103,15 +103,13 @@ class Font:
                 isinstance(self.interface.size, str)
                 and self.interface.size in ABSOLUTE_FONT_SIZES
             ):
-                font_size = DEFAULT_FONT.label_size
+                font_size = DEFAULT_FONT.Size
                 font_size *= FONT_SIZE_SCALE.get(self.interface.size, 1.0)
             elif (
                 isinstance(self.interface.size, str)
                 and self.interface.size in RELATIVE_FONT_SIZES
             ):
-                font_size = getattr(
-                    self.interface, "_parent_size", DEFAULT_FONT.label_size
-                )
+                font_size = getattr(self.interface, "_parent_size", DEFAULT_FONT.Size)
                 font_size *= RELATIVE_FONT_SIZE_SCALE.get(self.interface.size, 1.0)
             else:
                 font_size = self.interface.size
