@@ -58,7 +58,7 @@ class FontMixin:
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
             assert self.font.pointSize == 17
         elif isinstance(expected, str):
-            base_size = 17  # UIFont.labelFontSize for iOS
+            base_size = 17
             if expected in RELATIVE_FONT_SIZES:
                 # For relative sizes, we need to know the parent size
                 # In tests, assume MEDIUM as the parent size if not specified
