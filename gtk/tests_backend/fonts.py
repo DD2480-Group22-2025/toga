@@ -36,13 +36,16 @@ class FontMixin:
         elif expected == SYSTEM_DEFAULT_FONT_SIZE:
             assert 8 < int(self.font.get_size() / Pango.SCALE) < 18
         elif isinstance(expected, str):
-            assert True
-            base_size = 9.0
-            if expected in RELATIVE_FONT_SIZES:
-                parent_size = getattr(self, "_parent_size", base_size)
-                expected = parent_size * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
-            elif expected in ABSOLUTE_FONT_SIZES:
-                expected = base_size * FONT_SIZE_SCALE.get(expected, 1.0)
+            if expected in ABSOLUTE_FONT_SIZES:
+                expected_size = 12
+                expected_size *= FONT_SIZE_SCALE.get(expected, 1.0)  
+                actual_size = int(self.font.get_size() / Pango.SCALE)
+                assert expected_size // 3 < actual_size < expected_size * 3
+            elif expected in RELATIVE_FONT_SIZES:
+                expected_size = 12
+                expected_size *= RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
+                actual_size = int(self.font.get_size() / Pango.SCALE)
+                assert expected_size // 3 < actual_size < expected_size * 3
             else:
                 assert int(self.font.get_size() / Pango.SCALE) == expected
 

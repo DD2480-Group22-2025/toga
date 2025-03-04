@@ -86,17 +86,17 @@ class Font:
 
             # If this is a non-default font size, set the font size
             if self.interface.size != SYSTEM_DEFAULT_FONT_SIZE:
+                base_size = 12
                 if (
                     isinstance(self.interface.size, str) and
                     self.interface.size in ABSOLUTE_FONT_SIZES
                 ):
-                    font_size = 12
-                    font_size *= FONT_SIZE_SCALE.get(self.interface.size, 1.0)
+                    font_size = base_size * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
                 elif (
                     isinstance(self.interface.size, str) and
                     self.interface.size in RELATIVE_FONT_SIZES
                 ):
-                    font_size = getattr(self.interface, "_parent_size", 12)
+                    font_size = getattr(self.interface, "_parent_size", base_size)
                     font_size *= RELATIVE_FONT_SIZE_SCALE.get(self.interface.size, 1.0)
                 else:
                     font_size = self.interface.size * Pango.SCALE
