@@ -90,14 +90,12 @@ class Font:
                     isinstance(self.interface.size, str) and
                     self.interface.size in ABSOLUTE_FONT_SIZES
                 ):
-                    font_size = DEFAULT_FONT.Size
-                    font_size *= FONT_SIZE_SCALE.get(self.interface.size, 1.0)
+                    font.set_size(12 * Pango.SCALE)
                 elif (
                     isinstance(self.interface.size, str) and
                     self.interface.size in RELATIVE_FONT_SIZES
                 ):
-                    font_size = getattr(self.interface, "_parent_size", DEFAULT_FONT.Size)
-                    font_size *= RELATIVE_FONT_SIZE_SCALE.get(self.interface.size, 1.0)
+                    font.set_size(12 * Pango.SCALE)
                 else:
                     font.set_size(self.interface.size * Pango.SCALE)
 
