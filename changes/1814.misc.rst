@@ -1,2 +1,1 @@
-Support for CSS keywords in Windows.
-
+Support for CSS keywords in Windows & Cocoa.
