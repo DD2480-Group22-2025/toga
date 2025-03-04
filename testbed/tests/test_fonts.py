@@ -61,7 +61,7 @@ async def test_font_options(widget: toga.Label, font_probe):
             20,
             SYSTEM_DEFAULT_FONT_SIZE,
             *ABSOLUTE_FONT_SIZES,
-            *RELATIVE_FONT_SIZES,
+            *RELATIVE_FONT_SIZES,#
         ]:
             for font_weight in FONT_WEIGHTS:
                 for font_style in FONT_STYLES:
@@ -76,11 +76,11 @@ async def test_font_options(widget: toga.Label, font_probe):
                             f"{font_style} {font_variant} font"
                         )
 
-                        #font_probe.assert_font_family(font_family)
-                        #font_probe.assert_font_size(font_size)
-                        #font_probe.assert_font_options(
-                        #    font_weight, font_style, font_variant
-                        #)
+                        font_probe.assert_font_family(font_family)
+                        font_probe.assert_font_size(font_size)
+                        font_probe.assert_font_options(
+                            font_weight, font_style, font_variant
+                        )
 
 
 @pytest.mark.parametrize(

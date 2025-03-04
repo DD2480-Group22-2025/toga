@@ -41,10 +41,10 @@ class FontMixin:
             if expected in RELATIVE_FONT_SIZES:
                 parent_size = getattr(self, "_parent_size", base_size)
                 expected = parent_size * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
-            if expected in ABSOLUTE_FONT_SIZES:
+            elif expected in ABSOLUTE_FONT_SIZES:
                 expected = base_size * FONT_SIZE_SCALE.get(expected, 1.0)
-        else:
-            assert int(self.font.get_size() / Pango.SCALE) == expected
+            else:
+                assert int(self.font.get_size() / Pango.SCALE) == expected
 
     def assert_font_options(self, weight=NORMAL, style=NORMAL, variant=NORMAL):
         assert {

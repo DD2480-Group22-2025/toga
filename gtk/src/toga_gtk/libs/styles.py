@@ -2,6 +2,10 @@ from toga.colors import TRANSPARENT
 from toga.fonts import SYSTEM_DEFAULT_FONT_SIZE
 
 from ..libs import GTK_VERSION
+from travertino.constants import (
+    ABSOLUTE_FONT_SIZES,
+    RELATIVE_FONT_SIZES,
+)
 
 if GTK_VERSION < (4, 0, 0):  # pragma: no-cover-if-gtk4
     TOGA_DEFAULT_STYLES = b"""
@@ -61,7 +65,10 @@ def get_font_css(value):
         "font-family": f"{value.family!r}",
     }
 
-    if value.size != SYSTEM_DEFAULT_FONT_SIZE:
+    if (value.size != SYSTEM_DEFAULT_FONT_SIZE
+        and not value.size in ABSOLUTE_FONT_SIZES
+        and not value.size in RELATIVE_FONT_SIZES
+        ):
         style["font-size"] = f"{value.size}pt"
 
     return style
