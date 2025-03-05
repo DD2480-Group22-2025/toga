@@ -6,6 +6,11 @@ from android.util import TypedValue
 from fontTools.ttLib import TTFont
 from java import jint
 from java.lang import Integer, Long
+from travertino.constants import (
+    FONT_SIZE_SCALE,
+    RELATIVE_FONT_SIZE_SCALE,
+    RELATIVE_FONT_SIZES,
+)
 
 from toga.fonts import (
     BOLD,
@@ -78,6 +83,13 @@ class FontMixin:
     def assert_font_size(self, expected):
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
             expected = self.default_font_size * (72 / 96)
+        elif isinstance(expected, str):
+            base_size = self.default_font_size * (72 / 96)
+            if expected in RELATIVE_FONT_SIZES:
+                parent_size = getattr(self, "_parent_size", base_size)
+                expected = parent_size * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
+            else:
+                expected = base_size * FONT_SIZE_SCALE.get(expected, str)
         assert round(self.text_size) == round(
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
