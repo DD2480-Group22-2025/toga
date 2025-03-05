@@ -116,7 +116,7 @@ class Font:
         ):
             base_size = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
-                ABSOLUTE_FONT_SIZES[self.interface.size],
+                FONT_SIZE_SCALE.get(self.interface.size, 1.0),
                 context.getResources().getDisplayMetrics(),
             )
             return base_size * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
