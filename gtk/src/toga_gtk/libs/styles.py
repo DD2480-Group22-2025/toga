@@ -1,3 +1,8 @@
+from travertino.constants import (
+    ABSOLUTE_FONT_SIZES,
+    RELATIVE_FONT_SIZES,
+)
+
 from toga.colors import TRANSPARENT
 from toga.fonts import SYSTEM_DEFAULT_FONT_SIZE
 
@@ -61,7 +66,11 @@ def get_font_css(value):
         "font-family": f"{value.family!r}",
     }
 
-    if value.size != SYSTEM_DEFAULT_FONT_SIZE:
+    if (
+        value.size != SYSTEM_DEFAULT_FONT_SIZE
+        and value.size not in ABSOLUTE_FONT_SIZES
+        and value.size not in RELATIVE_FONT_SIZES
+    ):
         style["font-size"] = f"{value.size}pt"
 
     return style
