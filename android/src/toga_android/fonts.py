@@ -4,6 +4,12 @@ from android import R
 from android.graphics import Typeface
 from android.util import TypedValue
 from org.beeware.android import MainActivity
+from travertino.constants import (
+    ABSOLUTE_FONT_SIZES,
+    FONT_SIZE_SCALE,
+    RELATIVE_FONT_SIZE_SCALE,
+    RELATIVE_FONT_SIZES,
+)
 
 from toga.fonts import (
     _REGISTERED_FONT_CACHE,
@@ -104,6 +110,28 @@ class Font:
                 default = typed_array.getDimension(0, 0)
                 typed_array.recycle()
             return default
+        elif (
+            isinstance(self.interface.size, str)
+            and self.interface.size in ABSOLUTE_FONT_SIZES
+        ):
+            base_size = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP,
+                ABSOLUTE_FONT_SIZES[self.interface.size],
+                context.getResources().getDisplayMetrics(),
+            )
+            return base_size * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
+        elif (
+            isinstance(self.interface.size, str)
+            and self.interface.size in RELATIVE_FONT_SIZES
+        ):
+            if default is None:
+                typed_array = context.obtainStyledAttributes(
+                    R.style.TextAppearance_Small, [R.attr.textSize]
+                )
+                default = typed_array.getDimension(0, 0)
+                typed_array.recycle()
+            parent_size = getattr(self.interface, "_parent_size", default)
+            return parent_size * RELATIVE_FONT_SIZE_SCALE.get(self.interface.size, 1.0)
 
         else:
             # Using SP means we follow the standard proportion between CSS pixels and
