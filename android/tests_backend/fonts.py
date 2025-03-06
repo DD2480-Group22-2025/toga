@@ -94,6 +94,8 @@ class FontMixin:
             else:
                 expected = base_size * FONT_SIZE_SCALE.get(expected, 1.0)
                 print(f"Absolute: {expected}, actual: {self.text_size}")
+        else:
+            print(f"direct size: {expected}, actual: {self.text_size}")
         assert round(self.text_size) == round(
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,

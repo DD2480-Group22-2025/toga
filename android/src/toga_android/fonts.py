@@ -109,6 +109,12 @@ class Font:
                 )
                 default = typed_array.getDimension(0, 0)
                 typed_array.recycle()
+                print(
+                    "android fonts default",
+                    default,
+                    "self.interface.size: ",
+                    {self.interface.size},
+                )
             return default
         elif (
             isinstance(self.interface.size, str)
@@ -120,27 +126,49 @@ class Font:
                 )
                 default = typed_array.getDimension(0, 0)
                 typed_array.recycle()
-            return TypedValue.applyDimension(
+            px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 default * FONT_SIZE_SCALE.get(self.interface.size, 1.0),
                 context.getResources().getDisplayMetrics(),
             )
+            print(
+                "android fonts absolute:",
+                px,
+                "default:",
+                default,
+                "self.interface.size:",
+                self.interface.size,
+            )
+            return px
         elif (
             isinstance(self.interface.size, str)
             and self.interface.size in RELATIVE_FONT_SIZES
         ):
             parent_size = getattr(self.interface, "_parent_size", default)
-            return TypedValue.applyDimension(
+            px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 parent_size * RELATIVE_FONT_SIZE_SCALE.get(self.interface.size, 1.0),
                 context.getResources().getDisplayMetrics(),
             )
+            print(
+                "android fonts relative:",
+                px,
+                "parent_size:",
+                parent_size,
+                "interface.size:",
+                self.interface.size,
+            )
+            return px
 
         else:
             # Using SP means we follow the standard proportion between CSS pixels and
             # points by default, but respect the system text scaling setting.
-            return TypedValue.applyDimension(
+            px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 self.interface.size * (96 / 72),
                 context.getResources().getDisplayMetrics(),
             )
+            print(
+                f"android fonts direct:{px},self.interface.size:{self.interface.size}"
+            )
+            return px
