@@ -96,14 +96,16 @@ class FontMixin:
                 parent_size = getattr(self, "_parent_size", base_size)
                 expected = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_SP,
-                    parent_size * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0),
+                    parent_size
+                    * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
+                    * (96 / 72),
                     self.native.getResources().getDisplayMetrics(),
                 )
                 print(f"Relative: {expected}, actual: {self.text_size}")
             else:
                 expected = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_SP,
-                    base_size * FONT_SIZE_SCALE.get(expected, 1.0),
+                    base_size * FONT_SIZE_SCALE.get(expected, 1.0) * (96 / 72),
                     self.native.getResources().getDisplayMetrics(),
                 )
                 print(f"Absolute: {expected}, actual: {self.text_size}")
