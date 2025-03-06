@@ -120,11 +120,8 @@ class Font:
                 )
                 default = typed_array.getDimension(0, 0)
                 typed_array.recycle()
-            return TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP,
-                default * FONT_SIZE_SCALE[self.interface.size],
-                context.getResources().getDisplayMetrics(),
-            )
+            default = 14 * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
+            return default
         elif (
             isinstance(self.interface.size, str)
             and self.interface.size in RELATIVE_FONT_SIZES
@@ -136,17 +133,17 @@ class Font:
                 default = typed_array.getDimension(0, 0)
                 typed_array.recycle()
             parent_size = getattr(self.interface, "_parent_size", default)
-            return TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP,
-                parent_size * RELATIVE_FONT_SIZE_SCALE.get(self.interface.size, 1.0),
-                context.getResources().getDisplayMetrics(),
+            default = parent_size * RELATIVE_FONT_SIZE_SCALE.get(
+                self.interface.size, 1.0
             )
+            return default
 
         else:
             # Using SP means we follow the standard proportion between CSS pixels and
             # points by default, but respect the system text scaling setting.
-            return TypedValue.applyDimension(
+            default = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 self.interface.size * (96 / 72),
                 context.getResources().getDisplayMetrics(),
             )
+            return default
