@@ -105,7 +105,7 @@ class FontMixin:
                 expected * (96 / 72),
                 self.native.getResources().getDisplayMetrics(),
             )
-        assert round(self.text_size) == round(expected * 1.0)
+        assert round(self.text_size) == round(expected)
 
     def assert_font_family(self, expected):
         if not SYSTEM_FONTS:

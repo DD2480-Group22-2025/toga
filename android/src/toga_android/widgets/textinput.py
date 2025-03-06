@@ -1,5 +1,3 @@
-from decimal import ROUND_UP
-
 from android.text import InputType, TextWatcher
 from android.view import Gravity, View
 from android.widget import EditText
@@ -125,5 +123,5 @@ class TextInput(TextViewWidget):
     def rehint(self):
         self.native.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         self.interface.intrinsic.height = self.scale_out(
-            self.native.getMeasuredHeight(), ROUND_UP
+            self.native.getMeasuredHeight()  # , ROUND_UP
         )
