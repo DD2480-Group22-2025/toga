@@ -90,7 +90,7 @@ class FontMixin:
                 self.native.getResources().getDisplayMetrics(),
             )
             print(f"SYSTEM_DEFAULT: {expected}, actual: {self.text_size}")
-        if isinstance(expected, str):
+        elif isinstance(expected, str):
             base_size = self.default_font_size
             if expected in RELATIVE_FONT_SIZES:
                 parent_size = getattr(self, "_parent_size", base_size)
