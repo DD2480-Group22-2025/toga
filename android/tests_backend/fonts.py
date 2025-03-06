@@ -86,11 +86,11 @@ class FontMixin:
             expected = self.default_font_size
             expected = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
-                expected,
+                expected * (72 / 96),
                 self.native.getResources().getDisplayMetrics(),
             )
             print(f"SYSTEM_DEFAULT: {expected}, actual: {self.text_size}")
-        elif isinstance(expected, str):
+        if isinstance(expected, str):
             base_size = self.default_font_size
             if expected in RELATIVE_FONT_SIZES:
                 parent_size = getattr(self, "_parent_size", base_size)
@@ -114,13 +114,7 @@ class FontMixin:
                 self.native.getResources().getDisplayMetrics(),
             )
             print(f"Actual number: {expected}, actual: {self.text_size}")
-        assert round(self.text_size) == round(
-            TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP,
-                expected,
-                self.native.getResources().getDisplayMetrics(),
-            )
-        )
+        assert round(self.text_size) == round(expected)
 
     def assert_font_family(self, expected):
         if not SYSTEM_FONTS:
