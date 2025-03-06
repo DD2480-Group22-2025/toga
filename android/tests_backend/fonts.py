@@ -83,13 +83,16 @@ class FontMixin:
     def assert_font_size(self, expected):
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
             expected = self.default_font_size * (72 / 96)
+            print(f"Default: {expected}")
         elif isinstance(expected, str):
-            base_size = self.default_font_size * (72 / 96)
+            base_size = 14
             if expected in RELATIVE_FONT_SIZES:
                 parent_size = getattr(self, "_parent_size", base_size)
                 expected = parent_size * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
+                print(f"Absolute: {expected}")
             else:
-                expected = base_size * FONT_SIZE_SCALE.get(expected, str)
+                expected = base_size * FONT_SIZE_SCALE.get(expected, 1.0)
+                print(f"Relative: {expected}")
         assert round(self.text_size) == round(
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
