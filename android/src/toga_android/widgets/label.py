@@ -28,6 +28,7 @@ class TextViewWidget(Widget):
         set_textview_font(
             self.native, font._impl, self._default_typeface, self._default_text_size
         )
+        print("This is set_font:", self.default_text_size, self.native.getTextSize())
 
     def set_background_color(self, value):
         # In the case of EditText, this causes any custom color to hide the bottom
