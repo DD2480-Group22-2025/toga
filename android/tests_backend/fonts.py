@@ -85,7 +85,7 @@ class FontMixin:
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
             expected = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
-                base_size,
+                self.default_font_size,
                 self.native.getResources().getDisplayMetrics(),
             )
         elif isinstance(expected, str):

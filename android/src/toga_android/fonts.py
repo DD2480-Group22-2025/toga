@@ -102,6 +102,7 @@ class Font:
     def size(self, *, default=None):
         """Return the font size in physical pixels."""
         context = MainActivity.singletonThis
+        base_size = 14
         if self.interface.size == SYSTEM_DEFAULT_FONT_SIZE:
             if default is None:
                 typed_array = context.obtainStyledAttributes(
@@ -120,7 +121,7 @@ class Font:
                 )
                 default = typed_array.getDimension(0, 0)
                 typed_array.recycle()
-            default = 14 * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
+            default = base_size * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
             return default
         elif (
             isinstance(self.interface.size, str)
@@ -137,7 +138,6 @@ class Font:
                 self.interface.size, 1.0
             )
             return default
-
         else:
             # Using SP means we follow the standard proportion between CSS pixels and
             # points by default, but respect the system text scaling setting.
