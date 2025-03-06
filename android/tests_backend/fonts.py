@@ -83,40 +83,24 @@ class FontMixin:
     def assert_font_size(self, expected):
         print("EXPECTED FONT SIZE INPUT", expected)
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
-            expected = self.default_font_size
-            expected = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP,
-                expected * (72 / 96),
-                self.native.getResources().getDisplayMetrics(),
-            )
+            expected = self.default_font_size * (72 / 96)
             print(f"SYSTEM_DEFAULT: {expected}, actual: {self.text_size}")
         elif isinstance(expected, str):
             base_size = self.default_font_size
             if expected in RELATIVE_FONT_SIZES:
                 parent_size = getattr(self, "_parent_size", base_size)
-                expected = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_SP,
-                    parent_size
-                    * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
-                    * (96 / 72),
-                    self.native.getResources().getDisplayMetrics(),
-                )
+                expected = parent_size * RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
                 print(f"Relative: {expected}, actual: {self.text_size}")
             else:
-                expected = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_SP,
-                    base_size * FONT_SIZE_SCALE.get(expected, 1.0) * (96 / 72),
-                    self.native.getResources().getDisplayMetrics(),
-                )
+                expected = base_size * FONT_SIZE_SCALE.get(expected, 1.0)
                 print(f"Absolute: {expected}, actual: {self.text_size}")
-        else:
-            expected = TypedValue.applyDimension(
+        assert round(self.text_size) == round(
+            TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 expected * (96 / 72),
                 self.native.getResources().getDisplayMetrics(),
             )
-            print(f"Actual number: {expected}, actual: {self.text_size}")
-        assert round(self.text_size) == round(expected)
+        )
 
     def assert_font_family(self, expected):
         if not SYSTEM_FONTS:
