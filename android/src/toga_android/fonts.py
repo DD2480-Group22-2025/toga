@@ -114,12 +114,6 @@ class Font:
             isinstance(self.interface.size, str)
             and self.interface.size in ABSOLUTE_FONT_SIZES
         ):
-            if default is None:
-                typed_array = context.obtainStyledAttributes(
-                    R.style.TextAppearance_Small, [R.attr.textSize]
-                )
-                default = typed_array.getDimension(0, 0)
-                typed_array.recycle()
             default = 14 * FONT_SIZE_SCALE.get(self.interface.size, 1.0)
             return default
         elif (
@@ -141,9 +135,8 @@ class Font:
         else:
             # Using SP means we follow the standard proportion between CSS pixels and
             # points by default, but respect the system text scaling setting.
-            default = TypedValue.applyDimension(
+            return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 self.interface.size * (96 / 72),
                 context.getResources().getDisplayMetrics(),
             )
-            return default
