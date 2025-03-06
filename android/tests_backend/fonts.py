@@ -81,6 +81,7 @@ class FontMixin:
             assert NORMAL == variant
 
     def assert_font_size(self, expected):
+        print(expected)
         base_size = 14
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
             expected = TypedValue.applyDimension(
