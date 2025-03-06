@@ -122,7 +122,7 @@ class Font:
                 typed_array.recycle()
             return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
-                default * FONT_SIZE_SCALE[self.interface.size],
+                default * FONT_SIZE_SCALE.get(self.interface.size, 1.0),
                 context.getResources().getDisplayMetrics(),
             )
         elif (
