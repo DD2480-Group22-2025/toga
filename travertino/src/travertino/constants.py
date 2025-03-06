@@ -90,7 +90,6 @@ MEDIUM = "medium"
 LARGE = "large"
 X_LARGE = "x-large"
 XX_LARGE = "xx-large"
-XXX_LARGE = "xxx-large"
 
 ABSOLUTE_FONT_SIZES = {
     XX_SMALL,
@@ -100,7 +99,6 @@ ABSOLUTE_FONT_SIZES = {
     LARGE,
     X_LARGE,
     XX_LARGE,
-    XXX_LARGE,
 }
 
 LARGER = "larger"
@@ -118,7 +116,6 @@ FONT_SIZE_SCALE = {
     LARGE: 1.2,  # ~FONT_SIZE_SCALE_FACTOR - 20% larger
     X_LARGE: 1.44,  # ~FONT_SIZE_SCALE_FACTOR^2 - 40% larger
     XX_LARGE: 1.728,  # ~FONT_SIZE_SCALE_FACTOR^3 - 60% larger
-    XXX_LARGE: 2.074,  # ~FONT_SIZE_SCALE_FACTOR^4 - 80% larger
 }
 
 RELATIVE_FONT_SIZE_SCALE = {
