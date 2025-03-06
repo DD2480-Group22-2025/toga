@@ -83,8 +83,8 @@ class Font:
 
             font.set_family(family)
 
-            # If this is a non-default font size, set the font size. Absolute and
-            # relative font sizes not implemented, defaults to system default size
+            # Default font as well as values in absolute and relative font
+            # size are handled by Pango. Otherwise set font size manually.
             if (
                 self.interface.size != SYSTEM_DEFAULT_FONT_SIZE
                 and self.interface.size not in ABSOLUTE_FONT_SIZES

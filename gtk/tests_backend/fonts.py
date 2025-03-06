@@ -1,5 +1,7 @@
 from travertino.constants import (
     ABSOLUTE_FONT_SIZES,
+    FONT_SIZE_SCALE,
+    RELATIVE_FONT_SIZE_SCALE,
     RELATIVE_FONT_SIZES,
 )
 
@@ -31,17 +33,15 @@ class FontMixin:
         #
         # See also SYSTEM_DEFAULT_FONT_SIZE in toga_gtk/widgets/canvas.py.
         if self.font.get_size() == 0:
-            assert (
-                expected == SYSTEM_DEFAULT_FONT_SIZE
-                or expected in ABSOLUTE_FONT_SIZES
-                or expected in RELATIVE_FONT_SIZES
-            )
-        elif (
-            expected == SYSTEM_DEFAULT_FONT_SIZE
-            or expected in ABSOLUTE_FONT_SIZES
-            or expected in RELATIVE_FONT_SIZES
-        ):
-            assert 8 < (self.font.get_size() / Pango.SCALE) < 18
+            assert expected == SYSTEM_DEFAULT_FONT_SIZE
+        elif expected == SYSTEM_DEFAULT_FONT_SIZE:
+            assert 8 < int(self.font.get_size() / Pango.SCALE) < 18
+        elif expected in ABSOLUTE_FONT_SIZES:
+            scale = FONT_SIZE_SCALE.get(expected, 1.0)
+            assert 8 * scale < int(self.font.get_size() / Pango.SCALE) < 18 * scale
+        elif expected in RELATIVE_FONT_SIZES:
+            scale = RELATIVE_FONT_SIZE_SCALE.get(expected, 1.0)
+            assert 8 * scale < int(self.font.get_size() / Pango.SCALE) < 18 * scale
         else:
             assert int(self.font.get_size() / Pango.SCALE) == expected
 
