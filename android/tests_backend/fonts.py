@@ -80,16 +80,20 @@ class FontMixin:
 
     def assert_font_size(self, expected):
         if expected == SYSTEM_DEFAULT_FONT_SIZE:
-            expected = self.default_font_size * (72 / 96)
+            expected = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP,
+                self.default_font_size,
+                self.native.getResources().getDisplayMetrics(),
+            )
         elif isinstance(expected, str):
             expected = self.default_font_size * FONT_SIZE_SCALE.get(expected, 1.0)
-        assert round(self.text_size) == round(
-            TypedValue.applyDimension(
+        else:
+            expected = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 expected * (96 / 72),
                 self.native.getResources().getDisplayMetrics(),
             )
-        )
+        assert round(self.text_size) == round(expected)
 
     def assert_font_family(self, expected):
         if not SYSTEM_FONTS:
